@@ -20,6 +20,16 @@ public class Requests {
 	private Admins admin_id;
 	private LocalDateTime date = LocalDateTime.now();
 
+	public Requests(){
+
+	}
+
+	public Requests(Clients cliente_id, Products product_id, Admins admin_id) {
+		this.cliente_id = cliente_id;
+		this.product_id = product_id;
+		this.admin_id = admin_id;
+	}
+
 	public long getId() {
 		return id;
 	}

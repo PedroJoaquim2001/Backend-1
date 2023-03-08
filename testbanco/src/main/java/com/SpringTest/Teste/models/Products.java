@@ -22,7 +22,7 @@ public class Products {
 	public Products(){
 
 	}
-	public Products(Admins admin_id, String product_name, boolean status, String description,  double size_area, String type_culture) {
+	public Products(Admins admin_id, String product_name, boolean status, String description, double size_area, String type_culture) {
 		this.admin_id = admin_id;
 		this.product_name = product_name;
 		this.status = status;

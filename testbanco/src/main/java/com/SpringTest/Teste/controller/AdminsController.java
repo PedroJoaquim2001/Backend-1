@@ -1,11 +1,10 @@
 package com.SpringTest.Teste.controller;
 
-import com.SpringTest.Teste.controller.dto.AdminsDto;
-import com.SpringTest.Teste.controller.form.AdminsForm;
+import com.SpringTest.Teste.controller.dtos.AdminsDto;
+import com.SpringTest.Teste.controller.forms.AdminsForm;
 import com.SpringTest.Teste.models.Admins;
-import com.SpringTest.Teste.repositories.AdminRepository;
+import com.SpringTest.Teste.services.AdminsService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,19 +15,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminsController {
-    @Autowired
-    private AdminRepository adminRepository;
+
+    final AdminsService adminsService;
+
+    public AdminsController(AdminsService adminsService) {
+        this.adminsService = adminsService;
+    }
+
 
     @GetMapping
     public List<AdminsDto> list(){
-        List<Admins> admins = adminRepository.findAll();
+        List<Admins> admins = adminsService.findAll();
         return AdminsDto.convert(admins);
     }
 
     @PostMapping
-    public ResponseEntity<AdminsDto> signUp(@RequestBody @Valid AdminsForm form, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<AdminsDto> saveAdmin(@RequestBody @Valid AdminsForm form, UriComponentsBuilder uriBuilder){
         Admins admin = form.convert();
-        adminRepository.save(admin);
+        adminsService.save(admin);
 
         URI uri = uriBuilder.path("/admin/{id}").buildAndExpand(admin.getId()).toUri();
         return ResponseEntity.created(uri).body(new AdminsDto(admin));
