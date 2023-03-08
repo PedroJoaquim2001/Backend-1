@@ -6,6 +6,7 @@ import com.SpringTest.Teste.models.Products;
 import com.SpringTest.Teste.services.AdminsService;
 import com.SpringTest.Teste.services.ProductsService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,17 +25,23 @@ public class ProductsController {
     }
 
     @GetMapping
-    public List<ProductsDto> list() {
+    public ResponseEntity<List<ProductsDto>> getAll() {
         List<Products> products = productsService.findAll();
-        return ProductsDto.convert(products);
+        return ResponseEntity.status(HttpStatus.OK).body(ProductsDto.convert(products));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductsDto> getOne(@PathVariable Long id){
+        Products products = productsService.getOne(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ProductsDto(products));
     }
 
     @PostMapping
-    public ResponseEntity<ProductsDto> signUp(@RequestBody @Valid ProductsForm form, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ProductsDto> saveProduct(@RequestBody @Valid ProductsForm form, UriComponentsBuilder uriBuilder){
         Products product = form.convert(adminsService);
         productsService.save(product);
 
-        URI uri = uriBuilder.path("/Products/{id}").buildAndExpand(product.getId()).toUri();
+        URI uri = uriBuilder.path("/products/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).body(new ProductsDto(product));
     }
 }

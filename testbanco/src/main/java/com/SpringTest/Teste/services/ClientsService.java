@@ -24,4 +24,6 @@ public class ClientsService {
     public Clients findById(long id){
         return clientsRepository.findById(id);
     }
+
+    public Clients getOne(long id){return clientsRepository.getOne(id);}
 }

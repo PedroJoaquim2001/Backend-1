@@ -28,4 +28,6 @@ public class AdminsService {
         return adminsRepository.findById(id);
     }
 
+    public Admins getOne(long id){ return adminsRepository.getOne(id);}
+
 }

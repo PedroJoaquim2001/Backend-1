@@ -6,6 +6,7 @@ import com.SpringTest.Teste.controller.forms.ClientsForm;
 import com.SpringTest.Teste.models.Clients;
 import com.SpringTest.Teste.services.ClientsService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,17 +24,23 @@ public class ClientsController {
     }
 
     @GetMapping
-    public List<ClientsDto> list(){
+    public ResponseEntity<List<ClientsDto>> getAll(){
         List<Clients> clients = clientsService.findAll();
-        return ClientsDto.convert(clients);
+        return ResponseEntity.status(HttpStatus.OK).body(ClientsDto.convert(clients));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientsDto> getOne(@PathVariable Long id){
+        Clients clients = clientsService.getOne(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ClientsDto(clients));
     }
 
     @PostMapping
-    public ResponseEntity<ClientsDto> signUp(@RequestBody @Valid ClientsForm form, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ClientsDto> saveClient(@RequestBody @Valid ClientsForm form, UriComponentsBuilder uriBuilder){
         Clients client = form.converter();
         clientsService.save(client);
 
-        URI uri = uriBuilder.path("/admin/{id}").buildAndExpand(client.getId()).toUri();
+        URI uri = uriBuilder.path("/client/{id}").buildAndExpand(client.getId()).toUri();
         return ResponseEntity.created(uri).body(new ClientsDto(client));
     }
 

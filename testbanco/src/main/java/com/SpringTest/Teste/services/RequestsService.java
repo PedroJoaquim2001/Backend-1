@@ -22,5 +22,7 @@ public class RequestsService {
         return requestsRepository.save(requests);
     }
 
+    public Requests getOne(long id){return requestsRepository.getOne(id);}
+
 
 }

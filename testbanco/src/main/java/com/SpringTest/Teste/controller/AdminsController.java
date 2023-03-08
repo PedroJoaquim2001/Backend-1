@@ -5,6 +5,7 @@ import com.SpringTest.Teste.controller.forms.AdminsForm;
 import com.SpringTest.Teste.models.Admins;
 import com.SpringTest.Teste.services.AdminsService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,9 +25,15 @@ public class AdminsController {
 
 
     @GetMapping
-    public List<AdminsDto> list(){
+    public ResponseEntity<List<AdminsDto>> getAll(){
         List<Admins> admins = adminsService.findAll();
-        return AdminsDto.convert(admins);
+        return ResponseEntity.status(HttpStatus.OK).body(AdminsDto.convert(admins));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AdminsDto> getOne(@PathVariable Long id){
+        Admins admins = adminsService.getOne(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new AdminsDto(admins));
     }
 
     @PostMapping
