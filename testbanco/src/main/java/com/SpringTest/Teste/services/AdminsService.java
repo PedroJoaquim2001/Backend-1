@@ -1,11 +1,13 @@
 package com.SpringTest.Teste.services;
 
-import com.SpringTest.Teste.models.Admins;
+import com.SpringTest.Teste.models.AdminsModel;
 import com.SpringTest.Teste.repositories.AdminsRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AdminsService {
@@ -15,19 +17,16 @@ public class AdminsService {
         this.adminsRepository = adminsRepository;
     }
 
-    public List<Admins> findAll(){
-        return adminsRepository.findAll();
-    }
+    public List<AdminsModel> findAll(){return adminsRepository.findAll();}
 
     @Transactional
-    public Admins save(Admins admins){
-        return adminsRepository.save(admins);
+    public AdminsModel save(AdminsModel adminsModel){
+        return adminsRepository.save(adminsModel);
     }
 
-    public Admins findById(long id){
-        return adminsRepository.findById(id);
-    }
+    public Optional<AdminsModel> findById(UUID id){return adminsRepository.findById(id);}
 
-    public Admins getOne(long id){ return adminsRepository.getOne(id);}
+    @Transactional
+    public void delete(AdminsModel adminsModel){adminsRepository.delete(adminsModel);}
 
 }

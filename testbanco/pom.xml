@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.SpringTest</groupId>
-	<artifactId>Teste</artifactId>
+	<artifactId>ProjetoSenai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Teste</name>
 	<description>Demo project for Spring Boot</description>
@@ -44,7 +44,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -1,16 +1,18 @@
 package com.SpringTest.Teste.controller.forms;
 
-import com.SpringTest.Teste.models.Admins;
-import com.SpringTest.Teste.models.Products;
+import com.SpringTest.Teste.models.AdminsModel;
+import com.SpringTest.Teste.models.ProductsModel;
 import com.SpringTest.Teste.services.AdminsService;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.UUID;
+
 public class ProductsForm {
     @NotNull
-    private long admin_id;
+    private UUID admin_id;
     @NotNull @NotEmpty @Length(min = 1,max = 50)
     private String product_name;
     @NotNull
@@ -22,11 +24,11 @@ public class ProductsForm {
     @NotNull @NotEmpty @Length(min = 1,max = 255)
     private String description;
 
-    public long getAdmin_id() {
+    public UUID getAdmin_id() {
         return admin_id;
     }
 
-    public void setAdmin_id(long admin_id) {
+    public void setAdmin_id(UUID admin_id) {
         this.admin_id = admin_id;
     }
 
@@ -70,9 +72,9 @@ public class ProductsForm {
         this.description = description;
     }
 
-    public Products convert(AdminsService adminsService){
-        Admins admin = adminsService.findById(admin_id);
+    public ProductsModel convert(AdminsService adminsService){
+        AdminsModel admin = adminsService.findById(admin_id).get();
 
-        return new Products(admin, product_name, status, description, size_area, type_culture);
+        return new ProductsModel(admin, product_name, status, description, size_area, type_culture);
     }
 }

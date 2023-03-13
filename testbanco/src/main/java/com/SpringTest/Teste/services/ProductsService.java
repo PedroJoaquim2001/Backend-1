@@ -1,11 +1,13 @@
 package com.SpringTest.Teste.services;
 
-import com.SpringTest.Teste.models.Products;
+import com.SpringTest.Teste.models.ProductsModel;
 import com.SpringTest.Teste.repositories.ProductsRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductsService {
@@ -14,16 +16,20 @@ public class ProductsService {
         this.productsRepository = productsRepository;
     }
 
-    public List<Products> findAll(){
+    public List<ProductsModel> findAll(){
         return productsRepository.findAll();
     }
 
     @Transactional
-    public Products save(Products products){
-        return productsRepository.save(products);
+    public ProductsModel save(ProductsModel productsModel){
+        return productsRepository.save(productsModel);
     }
 
-    public Products findById(long id){return productsRepository.findById(id);}
+    public Optional<ProductsModel> findById(UUID id){return productsRepository.findById(id);}
 
-    public Products getOne(long id){return productsRepository.getOne(id);}
+    //public ProductsModel getOne(UUID id){return productsRepository.getOne(id);}
+
+    //public Optional<ProductsModel> findByIdOptional(Long id) {return productsRepository.findById(id);}
+
+    public void delete(ProductsModel productsModel) {productsRepository.delete(productsModel);}
 }

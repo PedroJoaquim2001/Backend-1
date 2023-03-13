@@ -1,5 +1,5 @@
 package com.SpringTest.Teste.controller.forms;
-import com.SpringTest.Teste.models.Clients;
+import com.SpringTest.Teste.models.ClientsModel;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -8,7 +8,7 @@ public class ClientsForm {
     @NotNull @NotEmpty @Length(min = 1,max = 35)
     private String name;
     @NotNull
-    private long phone_number;
+    private String phone_number;
     @NotNull @NotEmpty @Length(min = 1,max = 50)
     private String e_mail;
 
@@ -20,11 +20,11 @@ public class ClientsForm {
         this.name = name;
     }
 
-    public long getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(long phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 
@@ -36,7 +36,7 @@ public class ClientsForm {
         this.e_mail = e_mail;
     }
 
-    public Clients converter(){
-        return new Clients(name, phone_number, e_mail);
+    public ClientsModel convert(){
+        return new ClientsModel(name, phone_number, e_mail);
     }
 }

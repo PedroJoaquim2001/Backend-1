@@ -1,5 +1,5 @@
 package com.SpringTest.Teste.controller.forms;
-import com.SpringTest.Teste.models.Admins;
+import com.SpringTest.Teste.models.AdminsModel;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -9,7 +9,7 @@ public class AdminsForm {
     private String name;
     @NotNull @NotEmpty @Length(min = 1,max = 50)
     private String login;
-    @NotNull @NotEmpty @Length(min = 1,max = 12)
+    @NotNull @NotEmpty @Length(min = 1,max = 20)
     private String password;
 
     public String getName() {
@@ -36,7 +36,7 @@ public class AdminsForm {
         this.password = password;
     }
 
-    public Admins convert(){
-        return new Admins(name, login, password);
+    public AdminsModel convert(){
+        return new AdminsModel(name, login, password);
     }
 }

@@ -1,53 +1,55 @@
 package com.SpringTest.Teste.controller.forms;
 
-import com.SpringTest.Teste.models.Admins;
-import com.SpringTest.Teste.models.Clients;
-import com.SpringTest.Teste.models.Products;
-import com.SpringTest.Teste.models.Requests;
+import com.SpringTest.Teste.models.AdminsModel;
+import com.SpringTest.Teste.models.ClientsModel;
+import com.SpringTest.Teste.models.ProductsModel;
+import com.SpringTest.Teste.models.RequestsModel;
 import com.SpringTest.Teste.services.AdminsService;
 import com.SpringTest.Teste.services.ClientsService;
 import com.SpringTest.Teste.services.ProductsService;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 public class RequestsForm {
     @NotNull
-    private long cliente_id;
+    private UUID cliente_id;
 
     @NotNull
-    private long product_id;
+    private UUID product_id;
 
-    private long admin_id;
+    private UUID admin_id;
 
-    public long getCliente_id() {
+    public UUID getCliente_id() {
         return cliente_id;
     }
 
-    public void setCliente_id(long cliente_id) {
+    public void setCliente_id(UUID cliente_id) {
         this.cliente_id = cliente_id;
     }
 
-    public long getProduct_id() {
+    public UUID getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(long product_id) {
+    public void setProduct_id(UUID product_id) {
         this.product_id = product_id;
     }
 
-    public long getAdmin_id() {
+    public UUID getAdmin_id() {
         return admin_id;
     }
 
-    public void setAdmin_id(long admin_id) {
+    public void setAdmin_id(UUID admin_id) {
         this.admin_id = admin_id;
     }
 
-    public Requests convert(ClientsService clientsService, ProductsService productsService, AdminsService adminsService){
-        Clients clients = clientsService.findById(cliente_id);
-        Products products = productsService.findById(product_id);
-        Admins admin = adminsService.findById(admin_id);
+    public RequestsModel convert(ClientsService clientsService, ProductsService productsService, AdminsService adminsService){
+        ClientsModel clientsModel = clientsService.findById(cliente_id).get();
+        ProductsModel productsModel = productsService.findById(product_id).get();
+        AdminsModel admin = adminsService.findById(admin_id).get();
 
-        return new Requests(clients, products, admin);
+        return new RequestsModel(clientsModel, productsModel, admin);
     }
 
 }

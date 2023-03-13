@@ -1,8 +1,12 @@
 package com.SpringTest.Teste.repositories;
 
-import com.SpringTest.Teste.models.Products;
+import com.SpringTest.Teste.models.ProductsModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductsRepository extends JpaRepository<Products,Long> {
-    Products findById(long id);
+import java.util.Optional;
+import java.util.UUID;
+
+public interface ProductsRepository extends JpaRepository<ProductsModel,Long> {
+    Optional<ProductsModel> findById(UUID id);
+
 }
