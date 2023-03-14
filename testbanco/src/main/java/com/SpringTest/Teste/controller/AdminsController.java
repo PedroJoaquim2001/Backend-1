@@ -6,6 +6,7 @@ import com.SpringTest.Teste.models.AdminsModel;
 import com.SpringTest.Teste.services.AdminsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/admin")
 public class AdminsController {
-
-    final AdminsService adminsService;
-
-    public AdminsController(AdminsService adminsService) {
-        this.adminsService = adminsService;
-    }
+    @Autowired
+    private AdminsService adminsService;
 
 
     @GetMapping

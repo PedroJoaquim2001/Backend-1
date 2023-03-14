@@ -4,9 +4,11 @@ import com.SpringTest.Teste.controller.dtos.ProductsDto;
 import com.SpringTest.Teste.controller.forms.ProductsForm;
 import com.SpringTest.Teste.models.ProductsModel;
 import com.SpringTest.Teste.services.AdminsService;
+import com.SpringTest.Teste.services.CultureService;
 import com.SpringTest.Teste.services.ProductsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +22,13 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/product")
 public class ProductsController {
-    final ProductsService productsService;
-    final AdminsService adminsService;
-    public ProductsController(AdminsService adminsService, ProductsService productsService) {
-        this.adminsService = adminsService;
-        this.productsService = productsService;
-    }
+    @Autowired
+    private ProductsService productsService;
+    @Autowired
+    private AdminsService adminsService;
+    @Autowired
+    private CultureService cultureService;
+
 
     @GetMapping
     public ResponseEntity<List<ProductsDto>> getAll() {
@@ -44,7 +47,7 @@ public class ProductsController {
 
     @PostMapping
     public ResponseEntity<ProductsDto> saveProduct(@RequestBody @Valid ProductsForm form, UriComponentsBuilder uriBuilder){
-        ProductsModel product = form.convert(adminsService);
+        ProductsModel product = form.convert(adminsService, cultureService);
         productsService.save(product);
 
         URI uri = uriBuilder.path("/products/{id}").buildAndExpand(product.getId()).toUri();
@@ -70,7 +73,7 @@ public class ProductsController {
         }
         var product = new ProductsModel();
         BeanUtils.copyProperties(form, product);
-        product = form.convert(adminsService);
+        product = form.convert(adminsService, cultureService);
         product.setId(productsOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(productsService.save(product));
     }

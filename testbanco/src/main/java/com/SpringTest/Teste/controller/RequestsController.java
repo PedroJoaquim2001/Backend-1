@@ -9,6 +9,7 @@ import com.SpringTest.Teste.services.ProductsService;
 import com.SpringTest.Teste.services.RequestsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +23,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/request")
 public class RequestsController {
-    final AdminsService adminsService;
-    final ProductsService productsService;
+    @Autowired
+    private AdminsService adminsService;
+    @Autowired
+    private ProductsService productsService;
+    @Autowired
+    private ClientsService clientsService;
+    @Autowired
+    private RequestsService requestsService;
 
-    final ClientsService clientsService;
-    final RequestsService requestsService;
-
-    public RequestsController(AdminsService adminsService, ProductsService productsService, ClientsService clientsService, RequestsService requestsService) {
-        this.adminsService = adminsService;
-        this.productsService = productsService;
-        this.clientsService = clientsService;
-        this.requestsService = requestsService;
-    }
 
     @GetMapping
     public ResponseEntity<List<RequestsDto>> getAll(){

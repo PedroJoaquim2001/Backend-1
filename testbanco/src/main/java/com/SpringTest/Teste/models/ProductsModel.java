@@ -2,6 +2,7 @@ package com.SpringTest.Teste.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,8 +18,9 @@ public class ProductsModel {
 	private String product_name;
 	@Column(nullable = false)
 	private boolean status = true;
-	@JoinColumn(name = "type_culture")
-	private String type_culture;
+	@ManyToOne
+	@JoinColumn(name = "culture_id")
+	private CultureModel culture_id;
 	@Column(nullable = false)
 	private double size_area;
 	@Column(nullable = false)
@@ -30,11 +32,11 @@ public class ProductsModel {
 
 	}
 
-	public ProductsModel(AdminsModel admin_id, String product_name, boolean status, String type_culture, double size_area, String description) {
+	public ProductsModel(AdminsModel admin_id, String product_name, boolean status, CultureModel culture_id, double size_area, String description) {
 		this.admin_id = admin_id;
 		this.product_name = product_name;
 		this.status = status;
-		this.type_culture = type_culture;
+		this.culture_id = culture_id;
 		this.size_area = size_area;
 		this.description = description;
 	}
@@ -71,13 +73,9 @@ public class ProductsModel {
 		this.status = status;
 	}
 
-	public String getType_culture() {
-		return type_culture;
-	}
+	public CultureModel getCulture_id() {return culture_id;}
 
-	public void setType_culture(String type_culture) {
-		this.type_culture = type_culture;
-	}
+	public void setCulture_id(CultureModel culture_id) {this.culture_id = culture_id;}
 
 	public double getSize_area() {
 		return size_area;

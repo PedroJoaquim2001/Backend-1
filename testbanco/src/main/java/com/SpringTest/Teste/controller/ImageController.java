@@ -2,6 +2,7 @@ package com.SpringTest.Teste.controller;
 
 import com.SpringTest.Teste.models.ImageModel;
 import com.SpringTest.Teste.services.ImageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/image")
 public class ImageController {
-
-    final ImageService imageService;
-
-    public ImageController(ImageService imageService) {
-        this.imageService = imageService;
-    }
+    @Autowired
+    private ImageService imageService;
 
     @PostMapping
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {

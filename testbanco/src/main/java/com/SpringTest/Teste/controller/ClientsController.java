@@ -7,6 +7,7 @@ import com.SpringTest.Teste.models.ClientsModel;
 import com.SpringTest.Teste.services.ClientsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/client")
 public class ClientsController {
-    final ClientsService clientsService;
-
-    public ClientsController(ClientsService clientsService) {
-        this.clientsService = clientsService;
-    }
+    @Autowired
+    private ClientsService clientsService;
 
     @GetMapping
     public ResponseEntity<List<ClientsDto>> getAll(){

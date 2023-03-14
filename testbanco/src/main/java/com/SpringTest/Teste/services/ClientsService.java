@@ -3,6 +3,7 @@ package com.SpringTest.Teste.services;
 import com.SpringTest.Teste.models.ClientsModel;
 import com.SpringTest.Teste.repositories.ClientsRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +12,8 @@ import java.util.UUID;
 
 @Service
 public class ClientsService {
-    final ClientsRepository clientsRepository;
-    public ClientsService(ClientsRepository clientsRepository){
-        this.clientsRepository = clientsRepository;
-    }
+    @Autowired
+    private ClientsRepository clientsRepository;
 
     public List<ClientsModel> findAll(){
         return clientsRepository.findAll();

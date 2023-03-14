@@ -1,6 +1,7 @@
 package com.SpringTest.Teste.controller.dtos;
 
 
+import com.SpringTest.Teste.models.CultureModel;
 import com.SpringTest.Teste.models.ProductsModel;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class ProductsDto {
     private UUID admin_id;
     private String adminName;
     private boolean status;
-    private String type_culture;
+    private String culture_name;
     private double size_area;
     private String description;
     private LocalDateTime date ;
@@ -27,7 +28,7 @@ public class ProductsDto {
         this.status = productsModel.isStatus();
         this.description = productsModel.getDescription();
         this.size_area = productsModel.getSize_area();
-        this.type_culture = productsModel.getType_culture();
+        this.culture_name = productsModel.getCulture_id().getCulture_name();
         this.date = productsModel.getDate();
     }
 
@@ -51,9 +52,7 @@ public class ProductsDto {
         return status;
     }
 
-    public String getType_culture() {
-        return type_culture;
-    }
+    public String getCulture_name() {return culture_name;}
 
     public double getSize_area() {
         return size_area;

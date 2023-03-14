@@ -4,6 +4,7 @@ import com.SpringTest.Teste.models.AdminsModel;
 import com.SpringTest.Teste.models.CultureModel;
 import com.SpringTest.Teste.repositories.CultureRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,8 @@ import java.util.UUID;
 
 @Service
 public class CultureService {
-    final CultureRepository cultureRepository;
-
-    public CultureService(CultureRepository cultureRepository) {this.cultureRepository = cultureRepository;}
+    @Autowired
+    private CultureRepository cultureRepository;
 
     public List<CultureModel> findAll(){return cultureRepository.findAll();}
 
