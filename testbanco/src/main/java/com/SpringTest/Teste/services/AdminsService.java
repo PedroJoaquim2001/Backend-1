@@ -3,6 +3,7 @@ package com.SpringTest.Teste.services;
 import com.SpringTest.Teste.models.AdminsModel;
 import com.SpringTest.Teste.repositories.AdminsRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +12,8 @@ import java.util.UUID;
 
 @Service
 public class AdminsService {
-    final AdminsRepository adminsRepository;
-
-    public AdminsService(AdminsRepository adminsRepository) {
-        this.adminsRepository = adminsRepository;
-    }
+    @Autowired
+    private AdminsRepository adminsRepository;
 
     public List<AdminsModel> findAll(){return adminsRepository.findAll();}
 

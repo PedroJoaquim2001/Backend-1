@@ -4,6 +4,7 @@ import com.SpringTest.Teste.controller.dtos.ImageDto;
 import com.SpringTest.Teste.models.ImageModel;
 import com.SpringTest.Teste.repositories.ImageRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +14,8 @@ import java.util.UUID;
 
 @Service
 public class ImageService {
-    final ImageRepository imageRepository;
-
-    public ImageService(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
+    @Autowired
+    private ImageRepository imageRepository;
 
     public String uploadImage(MultipartFile file) throws IOException {
 
